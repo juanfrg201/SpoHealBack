@@ -12,15 +12,6 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  def update
-    user = User.find_by(authentication_token: update_params[:authentication_token]) 
-    if user.present?
-      user.update(name: update_params[:name], last_name: update_params[:last_name], email: update_params[:email])
-    else
-    end
-
-  end 
-
   private 
 
   def user_params
