@@ -4,7 +4,9 @@ class Api::V1::UsersController < ApplicationController
     user = User.new(user_params)
 
     if user.save
-      render json: { message: 'Usuario registrado correctamente' }, status: :created
+      auth_token = JsonWebToken.encode(user_id: user.id)
+      user.update(auth_token: auth_token)
+      render json: { auth_token: auth_token }, status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
@@ -22,7 +24,7 @@ class Api::V1::UsersController < ApplicationController
   private 
 
   def user_params
-    params.require(:user).permit(:name, :last_name, :email, :password, :authentication_token)
+    params.permit(:name, :last_name, :email, :password)
   end
 
   def update_params 
