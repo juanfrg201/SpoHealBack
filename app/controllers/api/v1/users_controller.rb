@@ -6,7 +6,7 @@ class Api::V1::UsersController < ApplicationController
     if user.save
       auth_token = JsonWebToken.encode(user_id: user.id)
       user.update(auth_token: auth_token)
-      render json: { auth_token: auth_token }, status: :created
+      render json: { auth_token: auth_token }, status: :ok
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end

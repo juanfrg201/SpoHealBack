@@ -1,5 +1,4 @@
 class Api::V1::AuthenticationController < ApplicationController
-  before_action :authenticate
 
   def authenticate
     user = User.find_by(email: params[:email])
@@ -10,10 +9,6 @@ class Api::V1::AuthenticationController < ApplicationController
     else
       render json: { error: 'Correo electrónico o contraseña incorrecta' }, status: :unauthorized
     end
-  end
-
-  def current_user
-    render json: @current_user
   end
 
 end
