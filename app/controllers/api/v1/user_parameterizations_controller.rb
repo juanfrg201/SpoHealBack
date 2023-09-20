@@ -1,8 +1,8 @@
 class Api::V1::UserParameterizationsController < ApplicationController
   def create
     user = User.find_by(auth_token: user_parameterization_params[:auth_token]) 
-    favorite_activity_id = Activity.find_by(name: user_parameterization_params[:favorite_activity_name]).id
-    cardiovascular_desease_id = CardiovascularDesease.find_by(name: user_parameterization_params[:cardiovascular_desease]).id
+    favorite_activity_id = Activity.find_by(identifier: user_parameterization_params[:favorite_activity_name]).id
+    cardiovascular_desease_id = CardiovascularDesease.find_by(identifier: user_parameterization_params[:select_cardiovascular_deseases]).id
 
     user_parameterization = UserParameterization.new(user_id: user.id, activity_id: favorite_activity_id, cardiovascular_desease_id: cardiovascular_desease_id, age: user_parameterization_params[:age], weight: user_parameterization_params[:weight], height: user_parameterization_params[:height])
 
@@ -19,6 +19,6 @@ class Api::V1::UserParameterizationsController < ApplicationController
   private
 
   def user_parameterization_params 
-    params.permit(:auth_token, :favorite_activity_name, :cardiovascular_desease, :age, :weight, :height)
+    params.permit(:auth_token, :favorite_activity_name, :select_cardiovascular_deseases, :age, :weight, :height)
   end
 end
