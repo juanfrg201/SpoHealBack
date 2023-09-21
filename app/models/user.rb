@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_one :user_parameterization
+  has_many :activity_recommendations
 
   validates :email, presence: true, uniqueness: true, format: { with: /\A[^@\s]+@[^@\s]+\z/ }
   validates :password, length: { minimum: 6 }, if: -> { password.present? }
