@@ -183,3 +183,12 @@ User.all.each do |i|
     imc = p.calculate_imc
     p.update(imc: imc)
 end
+
+User.all.each do |i|
+    3.times do |f|
+        activity_id = Activity.all.pluck(:id).sample
+        ActivityRecommendation.create(user_id: i.id, activity_id: activity_id, rating: rand(0..3))
+    end
+end
+
+
