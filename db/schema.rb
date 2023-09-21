@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_20_153107) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_21_154124) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,7 +51,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_20_153107) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "identifier"
+    t.integer "intensity"
+    t.integer "duration"
     t.index ["activity_type_id"], name: "index_activities_on_activity_type_id"
+  end
+
+  create_table "activity_recommendations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "activity_id", null: false
+    t.integer "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_activity_recommendations_on_activity_id"
+    t.index ["user_id"], name: "index_activity_recommendations_on_user_id"
   end
 
   create_table "activity_types", force: :cascade do |t|
@@ -100,6 +112,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_20_153107) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "activities", "activity_types"
+  add_foreign_key "activity_recommendations", "activities"
+  add_foreign_key "activity_recommendations", "users"
   add_foreign_key "user_parameterizations", "activities"
   add_foreign_key "user_parameterizations", "cardiovascular_deseases"
   add_foreign_key "user_parameterizations", "users"

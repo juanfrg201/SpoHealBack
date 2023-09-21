@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :recommendations, only: [:index]
       resources :cardiovascular_deseases, only: [:index]
       resources :activities, only: [:index]
       resources :user_parameterizations, only: [:create]
