@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       resources :user_parameterizations, only: [:create]
       resources :users, only: [:create]
       resources :authenticate, only: [:authenticate]
-      resources :community, only: [:index, :new, :create, :update, :destroy]
+      resources :community, only: [:index, :create, :update]
       post 'authenticate', to: 'authentication#authenticate' # Utiliza 'post' para la acción de autenticación
     end
   end

@@ -1,7 +1,7 @@
 class Api::V1::CommunityController < ApplicationController
   def index
     communities = Community.all
-    if communities.present
+    if communities.present?
       render json: { communities: communities }, status: :ok
     else
       render json: { errors: communities.errors.full_messages }, status: :unprocessable_entity
@@ -19,12 +19,20 @@ class Api::V1::CommunityController < ApplicationController
 
   def update
     community = Community.find(params[:id])
-
+    if community.update(update_params)
+      render json: { message: "Se actualizo" }, status: :ok
+    else
+      render json: { errors: community.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   private 
 
   def create_params 
-    params.require(:community).permit(:name, :issue)
+    params.permit(:user_id, :name, :issue)
+  end
+
+  def update_params 
+    params.permit(:name, :issue)
   end
 end
