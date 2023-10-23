@@ -29,7 +29,7 @@ class Api::V1::CommunityController < ApplicationController
   private 
 
   def create_params 
-    params.permit(:user_id, :name, :issue)
+    params.require(:community).permit(:user_id, :name, :issue)
   end
 
   def update_params 
