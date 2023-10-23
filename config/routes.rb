@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :community_posts, only: [:index, :create]  
       resources :community, only: [:index, :create]  
       resources :active_days, only: [:index, :create] 
+      resources :user_routes, only: [:create, :index] 
       get 'show_related_posts', to: 'community_posts#show_related_posts'
       post 'authenticate', to: 'authentication#authenticate' # Utiliza 'post' para la acción de autenticación
     end

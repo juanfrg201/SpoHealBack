@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_23_003518) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_23_231736) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -115,6 +115,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_003518) do
     t.index ["user_id"], name: "index_community_posts_on_user_id"
   end
 
+  create_table "routes", force: :cascade do |t|
+    t.integer "level"
+    t.integer "preasure"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "user_parameterizations", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "activity_id", null: false
@@ -128,6 +135,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_003518) do
     t.index ["activity_id"], name: "index_user_parameterizations_on_activity_id"
     t.index ["cardiovascular_desease_id"], name: "index_user_parameterizations_on_cardiovascular_desease_id"
     t.index ["user_id"], name: "index_user_parameterizations_on_user_id"
+  end
+
+  create_table "user_routes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "route_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["route_id"], name: "index_user_routes_on_route_id"
+    t.index ["user_id"], name: "index_user_routes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -153,4 +169,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_003518) do
   add_foreign_key "user_parameterizations", "activities"
   add_foreign_key "user_parameterizations", "cardiovascular_deseases"
   add_foreign_key "user_parameterizations", "users"
+  add_foreign_key "user_routes", "routes"
+  add_foreign_key "user_routes", "users"
 end
