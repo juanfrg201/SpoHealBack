@@ -21,7 +21,7 @@ class Api::V1::ActiveDaysController < ApplicationController
         render json: { errors: active_day.errors.full_messages }, status: :unprocessable_entity
       end
     else
-      render json: { errors: active_day.errors.full_messages }, status: :unprocessable_entity
+      render json: { mensage: "Ya se le registro el dia" }, status: :unprocessable_entity
     end
   end
 
