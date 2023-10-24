@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_21_154124) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_23_003518) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_days", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "day"
+    t.string "start_week"
+    t.string "end_week"
+    t.string "mensage"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_active_days_on_user_id"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -83,6 +94,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_21_154124) do
     t.integer "identifier"
   end
 
+  create_table "communities", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.string "issue"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_communities_on_user_id"
+  end
+
+  create_table "community_posts", force: :cascade do |t|
+    t.bigint "community_id", null: false
+    t.bigint "user_id", null: false
+    t.string "issue"
+    t.string "body"
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["community_id"], name: "index_community_posts_on_community_id"
+    t.index ["user_id"], name: "index_community_posts_on_user_id"
+  end
+
   create_table "user_parameterizations", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "activity_id", null: false
@@ -109,11 +141,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_21_154124) do
     t.string "number_phone"
   end
 
+  add_foreign_key "active_days", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "activities", "activity_types"
   add_foreign_key "activity_recommendations", "activities"
   add_foreign_key "activity_recommendations", "users"
+  add_foreign_key "communities", "users"
+  add_foreign_key "community_posts", "communities"
+  add_foreign_key "community_posts", "users"
   add_foreign_key "user_parameterizations", "activities"
   add_foreign_key "user_parameterizations", "cardiovascular_deseases"
   add_foreign_key "user_parameterizations", "users"
