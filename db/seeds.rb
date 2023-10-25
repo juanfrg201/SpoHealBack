@@ -10,6 +10,7 @@ Activity.destroy_all
 ActivityType.destroy_all
 CardiovascularDesease.destroy_all
 User.all.destroy_all
+Route.all.destroy_all
 
 10.times do |i|
     User.create(
@@ -190,5 +191,14 @@ User.all.each do |i|
         ActivityRecommendation.create(user_id: i.id, activity_id: activity_id, rating: rand(0..3))
     end
 end
+
+Route.create(level: 0, preasure: 0)
+Route.create(level: 0, preasure: 1)
+Route.create(level: 0, preasure: 2)
+
+Route.create(level: 1, preasure: 0)
+Route.create(level: 1, preasure: 1)
+Route.create(level: 1, preasure: 2)
+
 
 
