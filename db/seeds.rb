@@ -9,6 +9,9 @@ UserParameterization.all.destroy_all
 Activity.destroy_all
 ActivityType.destroy_all
 CardiovascularDesease.destroy_all
+ActiveDay.destroy_all
+CommunityPost.destroy_all
+Community.destroy_all
 User.all.destroy_all
 
 10.times do |i|

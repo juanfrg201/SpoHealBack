@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_23_003518) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_25_212405) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,6 +64,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_003518) do
     t.integer "identifier"
     t.integer "intensity"
     t.integer "duration"
+    t.boolean "sport_medical_restriccion", default: false
+    t.boolean "sport_muscle_pains", default: false
+    t.boolean "general_pain", default: false
+    t.boolean "is_hipertension", default: false
+    t.boolean "is_asthma", default: false
+    t.boolean "is_chest_pain", default: false
+    t.boolean "pain_cardiac", default: false
+    t.boolean "cardiac_family_pain", default: false
+    t.boolean "cholesterol_pain", default: false
+    t.boolean "dizzines_pain", default: false
+    t.boolean "smoke_pain", default: false
+    t.boolean "covid_19", default: false
     t.index ["activity_type_id"], name: "index_activities_on_activity_type_id"
   end
 
@@ -115,6 +127,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_003518) do
     t.index ["user_id"], name: "index_community_posts_on_user_id"
   end
 
+  create_table "routes", force: :cascade do |t|
+    t.integer "level"
+    t.integer "preasure"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "user_parameterizations", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "activity_id", null: false
@@ -125,9 +144,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_003518) do
     t.float "imc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "sport_medical_restriccion", default: false
+    t.boolean "sport_muscle_pains", default: false
+    t.boolean "general_pain", default: false
+    t.boolean "is_hipertension", default: false
+    t.boolean "is_asthma", default: false
+    t.boolean "is_chest_pain", default: false
+    t.boolean "pain_cardiac", default: false
+    t.boolean "cardiac_family_pain", default: false
+    t.boolean "cholesterol_pain", default: false
+    t.boolean "dizzines_pain", default: false
+    t.boolean "smoke_pain", default: false
+    t.boolean "covid_19", default: false
     t.index ["activity_id"], name: "index_user_parameterizations_on_activity_id"
     t.index ["cardiovascular_desease_id"], name: "index_user_parameterizations_on_cardiovascular_desease_id"
     t.index ["user_id"], name: "index_user_parameterizations_on_user_id"
+  end
+
+  create_table "user_routes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "route_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["route_id"], name: "index_user_routes_on_route_id"
+    t.index ["user_id"], name: "index_user_routes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -153,4 +193,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_003518) do
   add_foreign_key "user_parameterizations", "activities"
   add_foreign_key "user_parameterizations", "cardiovascular_deseases"
   add_foreign_key "user_parameterizations", "users"
+  add_foreign_key "user_routes", "routes"
+  add_foreign_key "user_routes", "users"
 end
