@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
   database: SpoHealBack_production
   username: SpoHealBack
   password: <%= ENV["SPOHEALBACK_DATABASE_PASSWORD"] %>
