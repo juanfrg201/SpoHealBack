@@ -4,7 +4,7 @@ class Api::V1::CommunityController < ApplicationController
     if communities.present?
       render json: { communities: communities }, status: :ok
     else
-      render json: { errors: communities.errors.full_messages }, status: :unprocessable_entity
+      render json: { communities: nil }, status: :ok
     end
   end
 
@@ -29,7 +29,7 @@ class Api::V1::CommunityController < ApplicationController
   private 
 
   def create_params 
-    params.require(:community).permit(:user_id, :name, :issue)
+    params.permit(:user_id, :name, :issue, :image)
   end
 
   def update_params 

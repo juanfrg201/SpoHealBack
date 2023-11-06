@@ -6,7 +6,7 @@ class Api::V1::UsersController < ApplicationController
     if user.save
       auth_token = JsonWebToken.encode(user_id: user.id)
       user.update(auth_token: auth_token)
-      render json: { auth_token: auth_token }, status: :ok
+      render json: { user_id: user.id }, status: :ok
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
@@ -15,7 +15,7 @@ class Api::V1::UsersController < ApplicationController
   private 
 
   def user_params
-    params.permit(:name, :last_name, :email, :password, :number_phone)
+    params.require(:user).permit(:name, :last_name, :email, :password, :number_phone)
   end
 
   def update_params 

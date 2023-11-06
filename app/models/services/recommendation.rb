@@ -8,12 +8,12 @@ module Services
     end
 
     def perform
-      content_based_recommendations = recommend_content_based
+      content_based_recommendations = recommend_content_based(1, 30)
       collaborative_recommendations = recommend_collaborative
 
       combined_recommendations = (content_based_recommendations + collaborative_recommendations).uniq
 
-      combined_recommendations.take(3)
+      combined_recommendations.sample(rand(3..6))
     end
 
     private

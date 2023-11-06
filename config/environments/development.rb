@@ -54,7 +54,7 @@ Rails.application.configure do
   config.active_record.verbose_query_logs = true
 
   
-  config.hosts << "e91e-179-33-114-38.ngrok-free.app"
+  config.hosts << "abe5-161-18-125-222.ngrok-free.app"
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
