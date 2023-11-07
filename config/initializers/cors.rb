@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
     allow do
-        origins "abe5-161-18-125-222.ngrok-free.app"
+        origins "spohealback.onrender.com"
 
         resource "*",
         headers: :any,
