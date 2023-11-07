@@ -3,10 +3,12 @@ class Api::V1::ActiveDaysController < ApplicationController
     start_week, end_week = start_end_week
     active_days = User.find(create_params[:auth_token]).active_days.where(start_week: start_week, end_week: end_week)
     day_number = (Date.today.wday + 6) % 7
-    day_value = active_days.days[active_days.where(user_id: User.find(create_params[:auth_token]).id).last.day]
     if active_days.present? && day_value == day_number
-      sorted_days = active_days.sort_by { |day| ActiveDay.days[day.day] }
-      render json: { days: sorted_days }, status: :ok
+      day_value = active_days.days[active_days.where(user_id: User.find(create_params[:auth_token]).id).last.day]
+      if day_value == day_number
+        sorted_days = active_days.sort_by { |day| ActiveDay.days[day.day] }
+        render json: { days: sorted_days }, status: :ok
+      end
     else
       start_week, end_week = start_end_week
       day_number = (Date.today.wday + 7) % 7
