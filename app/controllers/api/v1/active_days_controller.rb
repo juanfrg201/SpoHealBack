@@ -11,7 +11,7 @@ class Api::V1::ActiveDaysController < ApplicationController
       end
     else
       start_week, end_week = start_end_week
-      day_number = (Date.today.wday + 7) % 7
+      day_number = (Date.today.wday + 6) % 7
       user = User.find(create_params[:auth_token])
       active_day = ActiveDay.new(user_id: user.id, day: day_number, start_week: start_week, end_week: end_week)
       if active_day.validate_register
